@@ -1,0 +1,40 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="1.0.0_20191120_001" author="Andrew">
+
+        <createTable tableName="classroom">
+
+            <column name="id" type="bigint" autoIncrement="true"   remarks="主键"   >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="room_no" type="varchar(20)"   remarks="班级"  >
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="students">
+
+            <column name="id" type="bigint" autoIncrement="true"   remarks="主键"   >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(20)"   remarks="姓名"  >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="classroom_id" type="bigint"   remarks="班级"  >
+                <constraints foreignKeyName="f_classroom_id" referencedTableName="classroom" referencedColumnNames="id" nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="tag_1.0.0" author="Andrew">
+        <tagDatabase tag="1.0.0"/>
+    </changeSet>
+</databaseChangeLog>

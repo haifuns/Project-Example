@@ -1,0 +1,33 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="3.0.0_20191120_001" author="Andrew">
+        <insert dbms="postgresql" tableName="classroom">
+            <column name="id" value="1"/>
+            <column name="room_no" value="一年一班"/>
+        </insert>
+
+        <insert dbms="postgresql" tableName="student">
+            <column name="id" value="1"/>
+            <column name="name" value="张三"/>
+            <column name="classroom_id" value="1"/>
+        </insert>
+
+        <!--DROP TABLE & INSERT 无法自动rollback需要手动处理-->
+        <rollback>
+            <delete tableName="student">
+                <where>
+                    id = 1
+                </where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tag_3.0.0" author="Andrew">
+        <tagDatabase tag="3.0.0"/>
+    </changeSet>
+</databaseChangeLog>

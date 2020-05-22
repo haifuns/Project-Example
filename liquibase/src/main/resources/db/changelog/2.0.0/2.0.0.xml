@@ -1,0 +1,30 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="2.0.0_20191120_001" author="Andrew">
+
+        <renameTable oldTableName="students" newTableName="student"/>
+
+    </changeSet>
+
+    <changeSet id="2.0.0_20191120_002" author="Andrew">
+
+        <dropForeignKeyConstraint  baseTableCatalogName="classroom"
+                                   baseTableName="student"
+                                   baseTableSchemaName="public"
+                                   constraintName="f_classroom_id"/>
+        <rollback>
+            <addForeignKeyConstraint baseTableName="student" baseColumnNames="classroom_id" constraintName="f_classroom_id" referencedTableName="classroom"
+                                     referencedColumnNames="id"/>
+        </rollback>
+
+    </changeSet>
+
+    <changeSet id="tag_2.0.0" author="Andrew">
+        <tagDatabase tag="2.0.0"/>
+    </changeSet>
+</databaseChangeLog>
