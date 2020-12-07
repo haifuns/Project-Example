@@ -9,6 +9,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.CharsetUtil;
 
+import java.util.concurrent.TimeUnit;
+
 public class NettyServer {
 
 	public static void main(String[] args) {
@@ -29,7 +31,8 @@ public class NettyServer {
 					@Override
 					protected void initChannel(SocketChannel ch) throws Exception {
 						// 给pipeline 设置处理器
-						ch.pipeline().addLast(new NettyServerHandler());
+						//ch.pipeline().addLast(new NettyServerHandler());
+						ch.pipeline().addLast(new NettyServerTaskHandler());
 					}
 				}); // 给workGroup 的EventLoop 对应的管道设置处理器
 
@@ -38,6 +41,18 @@ public class NettyServer {
 		try {
 			// 启动服务器, 绑定端口并设置同步
 			ChannelFuture channelFuture = bootstrap.bind(8080).sync();
+
+			// 给ChannelFuture注册监听器, 监控关心的事件
+			channelFuture.addListener(new ChannelFutureListener() {
+				@Override
+				public void operationComplete(ChannelFuture future) throws Exception {
+					if (future.isSuccess()) {
+						System.out.println("监听端口 8080 成功");
+					} else {
+						System.out.println("监听端口 8080 失败");
+					}
+				}
+			});
 
 			// 对关闭通道监听
 			channelFuture.channel().closeFuture().sync();
@@ -85,6 +100,60 @@ class NettyServerHandler extends ChannelInboundHandlerAdapter {
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
 		// writeAndFlush 是write + flush
 		// 将数据写入到缓存, 并刷新
+		ctx.writeAndFlush(Unpooled.copiedBuffer("bye ~", CharsetUtil.UTF_8));
+	}
+}
+
+class NettyServerTaskHandler extends ChannelInboundHandlerAdapter {
+
+	@Override
+	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+
+		// 自定义普通任务, 该任务是提交到taskQueue中
+		ctx.channel().eventLoop().execute(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(5 * 1000);
+					ctx.writeAndFlush(Unpooled.copiedBuffer("hello ~ task", CharsetUtil.UTF_8));
+					System.out.println("channel hash =" + ctx.channel().hashCode());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		// 注意此处第二个普通任务在任务一基础上睡眠5s, 10s后输出
+		ctx.channel().eventLoop().execute(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(5 * 1000);
+					ctx.writeAndFlush(Unpooled.copiedBuffer("hello ~ task2", CharsetUtil.UTF_8));
+					System.out.println("channel hash =" + ctx.channel().hashCode());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		// 自定义定时任务, 该任务是提交到scheduledTaskQueue中
+		ctx.channel().eventLoop().schedule(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(5 * 1000);
+					ctx.writeAndFlush(Unpooled.copiedBuffer("hello ~ timed task", CharsetUtil.UTF_8));
+					System.out.println("channel hash =" + ctx.channel().hashCode());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}, 5, TimeUnit.SECONDS);
+	}
+
+	@Override
+	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
 		ctx.writeAndFlush(Unpooled.copiedBuffer("bye ~", CharsetUtil.UTF_8));
 	}
 }
