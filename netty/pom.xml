@@ -8,12 +8,25 @@
     <artifactId>netty</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
+
     <dependencies>
         <!--netty依赖-->
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.20.Final</version>
+            <version>4.1.55.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.14.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+    </build>
 </project>
