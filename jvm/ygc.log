@@ -1,0 +1,20 @@
+OpenJDK 64-Bit Server VM (25.265-b01) for windows-amd64 JRE (1.8.0_265-b01), built on Jul 28 2020 15:11:27 by "jenkins" with MS VC++ 12.0 (VS2013)
+Memory: 4k page, physical 16636700k(9522588k free), swap 19127068k(11070512k free)
+# JVM参数
+CommandLine flags: -XX:InitialHeapSize=10485760 -XX:MaxHeapSize=10485760 -XX:MaxNewSize=5242880 -XX:NewSize=5242880 -XX:OldPLABSize=16 -XX:PretenureSizeThreshold=10485760 -XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:SurvivorRatio=8 -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseConcMarkSweepGC -XX:-UseLargePagesIndividualAllocation -XX:+UseParNewGC
+0.152: [GC (Allocation Failure) 0.152: [ParNew: 3366K->512K(4608K), 0.0015631 secs] 3366K->1782K(9728K), 0.0017870 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+# 0.152 系统运行时间
+# GC (Allocation Failure) 对象分配失败
+# ParNew 新生代GC，ParNew垃圾收集器
+# 3366K->512K(4608K) GC前已使用3366K，GC后存活512K对象，可用空间4.5MB（Eden+一块Survivor）
+# 0.0015631 secs GC耗时1.5ms
+# 3366K->1782K(9728K) 整个堆GC前使用3366K，GC后使用1782K，整个堆可用空间9.5MB
+0.154: [GC (Allocation Failure) 0.154: [ParNew: 2638K->0K(4608K), 0.0012390 secs] 3908K->1782K(9728K), 0.0012722 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+Heap
+ par new generation   total 4608K, used 2089K [0x00000000ff600000, 0x00000000ffb00000, 0x00000000ffb00000)
+  eden space 4096K,  51% used [0x00000000ff600000, 0x00000000ff80a558, 0x00000000ffa00000)
+  from space 512K,   0% used [0x00000000ffa00000, 0x00000000ffa00000, 0x00000000ffa80000)
+  to   space 512K,   0% used [0x00000000ffa80000, 0x00000000ffa80000, 0x00000000ffb00000)
+ concurrent mark-sweep generation total 5120K, used 1782K [0x00000000ffb00000, 0x0000000100000000, 0x0000000100000000)
+ Metaspace       used 3164K, capacity 4556K, committed 4864K, reserved 1056768K
+  class space    used 331K, capacity 392K, committed 512K, reserved 1048576K
