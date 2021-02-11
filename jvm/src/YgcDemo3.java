@@ -11,7 +11,7 @@ public class YgcDemo3 {
 
 		byte[] array1 = new byte[64 * 1024];
 
-		for (int i = 0; i < 8; i++) {                  // 1 2 3 4 5 6  7  8  9
+		for (int i = 0; i < 9; i++) {                  // 1 2 3 4 5 6  7  8  9
 			byte[] array2 = new byte[2 * 1024 * 1024]; //   2 4 6 8 10 12 14 16
 			array2 = null;
 			byte[] array3 = new byte[6 * 1024 * 1024]; // 1 3 5 7 9 11 13 15 17
