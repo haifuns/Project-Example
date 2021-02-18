@@ -1,0 +1,13 @@
+server:
+  port: 8763
+
+eureka:
+  instance:
+    hostname: eureka8763
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://eureka8761:8761/eureka/,http://eureka8762:8762/eureka/
+  server:
+    enableSelfPreservation: false
