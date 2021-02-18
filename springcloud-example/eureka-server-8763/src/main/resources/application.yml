@@ -4,10 +4,13 @@ server:
 eureka:
   instance:
     hostname: eureka8763
+    leaseExpirationDurationInSeconds: 6 # 无心跳认为宕机阈值
   client:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
       defaultZone: http://eureka8761:8761/eureka/,http://eureka8762:8762/eureka/
   server:
-    enableSelfPreservation: false
+    enableSelfPreservation: false # 关闭自我保护
+    responseCacheUpdateIntervalMs: 3000 # ReadOnly缓存刷新时间
+    evictionIntervalTimerInMs: 6000 # 心跳检查间隔
