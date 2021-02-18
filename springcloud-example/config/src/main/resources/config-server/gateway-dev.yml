@@ -1,0 +1,16 @@
+server:
+  port: 7071
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: order_routh
+          uri: lb://order-service
+          predicates:
+            - Path=/order/**

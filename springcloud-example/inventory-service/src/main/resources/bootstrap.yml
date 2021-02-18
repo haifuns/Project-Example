@@ -10,7 +10,7 @@ spring:
     config:
       label: master
       profile: dev
-      name: order-service
+      name: inventory-service
       discovery:
         enabled: true
         service-id: config-server

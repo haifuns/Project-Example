@@ -1,17 +1,15 @@
-package com.haif.config;
+package com.haif.inventory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.config.server.EnableConfigServer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @EnableEurekaClient
-@EnableConfigServer
 @SpringBootApplication
-public class ConfigApplication {
+public class InventoryApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ConfigApplication.class, args);
+		SpringApplication.run(InventoryApplication.class, args);
 	}
 
 }

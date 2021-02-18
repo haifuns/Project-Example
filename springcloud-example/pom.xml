@@ -17,6 +17,7 @@
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
+        <inventory-api.version>0.0.1-SNAPSHOT</inventory-api.version>
     </properties>
 
     <!--<repositories>
@@ -39,6 +40,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>com.haif</groupId>
+                <artifactId>inventory-api</artifactId>
+                <version>${inventory-api.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -48,6 +54,8 @@
         <module>eureka-server-8763</module>
         <module>config</module>
         <module>gateway</module>
+        <module>inventory-api</module>
+        <module>inventory-service</module>
         <module>order-service</module>
     </modules>
 
