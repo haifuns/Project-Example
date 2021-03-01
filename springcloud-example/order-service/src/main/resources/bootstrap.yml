@@ -1,11 +1,13 @@
 eureka:
   instance:
     hostname: localhost
-    leaseRenewalIntervalInSeconds: 3 # 心跳间隔
+    lease-renewal-interval-in-seconds: 3 # 心跳间隔
+    lease-expiration-duration-in-seconds: 6 # 无心跳认为宕机阈值
   client:
     serviceUrl:
       defaultZone: http://eureka8761:8761/eureka/,http://eureka8762:8762/eureka/,http://eureka8763:8763/eureka/
-    registryFetchIntervalSeconds: 3000 # 服务发现间隔
+    registry-fetch-interval-seconds: 3 # 服务发现间隔
+
 spring:
   cloud:
     config:
@@ -15,3 +17,23 @@ spring:
       discovery:
         enabled: true
         service-id: config-server
+    bus:
+      trace:
+        enabled: true # 开启消息跟踪
+
+feign:
+  httpclient: #替换掉JDK默认HttpURLConnection实现的 Http Client
+    enabled: true
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000 #连接超时时间
+        readTimeout: 5000 #读取超时时间
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,7 +1,7 @@
 eureka:
   instance:
     hostname: localhost
-    leaseRenewalIntervalInSeconds: 3 # 心跳间隔
+    lease-renewal-interval-in-seconds: 3 # 心跳间隔
   client:
     serviceUrl:
       defaultZone: http://eureka8761:8761/eureka/,http://eureka8762:8762/eureka/,http://eureka8763:8763/eureka/

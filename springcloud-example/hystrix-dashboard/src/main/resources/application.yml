@@ -1,0 +1,7 @@
+# 访问地址 http://localhost:10010/hystrix -> http://localhost:10010/actuator/hystrix.stream
+server:
+  port: 10010
+
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "*"

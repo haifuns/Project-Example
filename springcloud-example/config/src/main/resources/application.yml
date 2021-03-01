@@ -11,3 +11,19 @@ spring:
       server:
         native:
           search-locations: classpath:/config-server
+    bus:
+      trace:
+        enabled: true # 开启消息跟踪
+  rabbitmq:
+    host: 192.168.3.18
+    username: admin
+    password: admin
+    port: 5672
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# 刷新回调地址: http://localhost:8888/actuator/bus-refresh
