@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RefreshScope
 public class ConfigController {
 
-
 	@Value("${env}")
 	String env;
 

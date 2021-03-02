@@ -15,7 +15,7 @@ spring:
       trace:
         enabled: true # 开启消息跟踪
   rabbitmq:
-    host: 192.168.3.18
+    host: docker-server
     username: admin
     password: admin
     port: 5672
