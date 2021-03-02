@@ -9,6 +9,11 @@ spring:
       discovery:
         locator:
           enabled: true
+      default-filters:
+        - name: Hystrix
+          args:
+            name: fallback
+            fallbackUri: forward:/fallback
       routes:
         - id: order_routh
           uri: lb://order-service
