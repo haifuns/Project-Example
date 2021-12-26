@@ -8,6 +8,8 @@ import org.apache.curator.framework.recipes.leader.LeaderSelectorListener;
 import org.apache.curator.framework.state.ConnectionState;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
+import static com.haifuns.zkdemo.ZKConfigConstant.HOST;
+
 /**
  * @author haifuns
  * @date 2021/11/30 22:59
@@ -16,7 +18,7 @@ public class LeaderElectionDemo {
 
     public static void main(String[] args) throws InterruptedException {
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
-        CuratorFramework client = CuratorFrameworkFactory.newClient("192.168.0.13:2181", retryPolicy);
+        CuratorFramework client = CuratorFrameworkFactory.newClient(HOST, retryPolicy);
         client.start();
 
         LeaderSelector leaderSelector = new LeaderSelector(client, "/leader/election", new LeaderSelectorListener() {

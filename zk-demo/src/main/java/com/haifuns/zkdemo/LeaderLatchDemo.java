@@ -6,6 +6,8 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.leader.LeaderLatch;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
+import static com.haifuns.zkdemo.ZKConfigConstant.HOST;
+
 /**
  * @author haifuns
  * @date 2021/11/30 22:51
@@ -14,7 +16,7 @@ public class LeaderLatchDemo {
 
     public static void main(String[] args) throws Exception {
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
-        CuratorFramework client = CuratorFrameworkFactory.newClient("192.168.0.13:2181", retryPolicy);
+        CuratorFramework client = CuratorFrameworkFactory.newClient(HOST, retryPolicy);
         client.start();
 
         LeaderLatch leaderLatch = new LeaderLatch(client, "/leader/latch");
