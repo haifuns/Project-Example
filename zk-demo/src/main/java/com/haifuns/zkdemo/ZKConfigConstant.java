@@ -6,5 +6,5 @@ package com.haifuns.zkdemo;
  */
 public class ZKConfigConstant {
 
-    public static final String HOST = "localhost:2181";
+    public static final String HOST = "192.168.0.13:2181";
 }
