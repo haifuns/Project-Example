@@ -13,7 +13,7 @@ import static com.haifuns.zkdemo.ZKConfigConstant.HOST;
  * @author haifuns
  * @date 2021/12/29 22:16
  */
-public class ReentrantLockDemo {
+public class InterProcessMutexDemo {
 
     public static void main(String[] args) throws Exception {
 
