@@ -3,18 +3,17 @@ package com.haifuns.zkdemo;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.recipes.cache.NodeCache;
+import org.apache.curator.framework.recipes.cache.NodeCacheListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
-
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import static com.haifuns.zkdemo.ZKConfigConstant.HOST;
 
 /**
  * @author haifuns
- * @date 2021/11/30 22:17
+ * @date 2022/1/9 23:05
  */
-public class ZkCrudDemo {
+public class NodeCacheDemo {
 
     public static void main(String[] args) throws Exception {
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
@@ -24,16 +23,14 @@ public class ZkCrudDemo {
                 retryPolicy);
         client.start();
 
-        client.create().creatingParentsIfNeeded().forPath("/test/path", "100".getBytes(StandardCharsets.UTF_8));
+        NodeCache nodeCache = new NodeCache(client, "nodeCache");
+        nodeCache.getListenable().addListener(new NodeCacheListener() {
+            @Override
+            public void nodeChanged() throws Exception {
+                System.out.println("node changed");
+            }
+        });
 
-        byte[] bytes = client.getData().forPath("/test/path");
-        System.out.println(new String(bytes));
-
-        List<String> children = client.getChildren().forPath("/test");
-        System.out.println(children);
-
-        client.delete().forPath("/test/path");
-
-        client.close();
+        nodeCache.start();
     }
 }
