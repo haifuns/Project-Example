@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2022 maoyan.com
- * All rights reserved.
- *
- */
 package com.haifuns.zkdemo.lock;
 
 import org.apache.curator.RetryPolicy;
